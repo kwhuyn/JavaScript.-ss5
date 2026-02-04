@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quan Ly Sach</title>
+</head>
+<body>
+    <script>
+      let booksId = [];
+let booksName = [];
+let bookStatus = [];
+
+let totalBooks;
+do {
+    totalBooks = +prompt("Có bao nhiêu cuốn sách cần kiểm tra tình trạng hôm nay?");
+} while (isNaN(totalBooks) || totalBooks <= 0);
+
+for (let i = 0; i < totalBooks; i++) {
+    let id, name, statusInput;
+    do {
+        id = prompt("Nhập mã sách thứ " + (i + 1) + ":");
+    } while (id.trim() === "");
+    
+    do {
+        name = prompt("Nhập tên sách thứ " + (i + 1) + ":");
+    } while (name.trim() === "");
+
+    do {
+        statusInput = +prompt("Tình trạng (1: Hỏng nhẹ, 2: Hỏng nặng, 3: Cần sửa gấp):");
+    } while (statusInput < 1 || statusInput > 3);
+
+    booksId.push(id);
+    booksName.push(name);
+    
+    if (statusInput === 1) bookStatus.push("Hỏng nhẹ");
+    else if (statusInput === 2) bookStatus.push("Hỏng nặng");
+    else bookStatus.push("Cần sửa gấp");
+}
+
+console.log("--- DANH SÁCH BAN ĐẦU ---");
+for (let j = 0; j < booksId.length; j++) {
+    console.log(`${j + 1}. Mã: ${booksId[j]} - Tên: ${booksName[j]} - Tình trạng: ${bookStatus[j]}`);
+}
+
+let menuChoice;
+do {
+    menuChoice = +prompt("Chọn thao tác:\n1: Sửa tình trạng\n2: Loại bỏ (xóa) sách\n0: Kết thúc và in báo cáo");
+
+    if (menuChoice === 1) {
+        let findId = prompt("Nhập mã sách cần sửa:");
+        let indexFound = -1;
+        for (let k = 0; k < booksId.length; k++) {
+            if (booksId[k] === findId) {
+                indexFound = k;
+                break;
+            }
+        }
+
+        if (indexFound !== -1) {
+            let newStatus = +prompt("Tình trạng mới (1: Hỏng nhẹ, 2: Hỏng nặng, 3: Cần sửa gấp, 4: Đã sửa xong, 5: Loại bỏ):");
+            if (newStatus === 1) bookStatus[indexFound] = "Hỏng nhẹ";
+            else if (newStatus === 2) bookStatus[indexFound] = "Hỏng nặng";
+            else if (newStatus === 3) bookStatus[indexFound] = "Cần sửa gấp";
+            else if (newStatus === 4) bookStatus[indexFound] = "Đã sửa xong";
+            else if (newStatus === 5) bookStatus[indexFound] = "Loại bỏ";
+        } else {
+            console.log("Không tìm thấy mã sách!");
+        }
+
+    } else if (menuChoice === 2) {
+        let deleteId = prompt("Nhập mã sách cần xóa:");
+        let indexDelete = -1;
+        for (let m = 0; m < booksId.length; m++) {
+            if (booksId[m] === deleteId) {
+                indexDelete = m;
+                break;
+            }
+        }
+
+        if (indexDelete !== -1) {
+            booksId.splice(indexDelete, 1);
+            booksName.splice(indexDelete, 1);
+            bookStatus.splice(indexDelete, 1);
+            console.log("Đã xóa thành công!");
+        } else {
+            console.log("Không tìm thấy mã sách để xóa!");
+        }
+    }
+
+    if (menuChoice !== 0) {
+        console.log("--- DANH SÁCH CẬP NHẬT ---");
+        for (let n = 0; n < booksId.length; n++) {
+            console.log(`${n + 1}. Mã: ${booksId[n]} - Tên: ${booksName[n]} - Tình trạng: ${bookStatus[n]}`);
+        }
+    }
+
+} while (menuChoice !== 0);
+
+let countFixed = 0;
+let countRemoved = 0;
+for (let p = 0; p < bookStatus.length; p++) {
+    if (bookStatus[p] === "Đã sửa xong") countFixed++;
+    if (bookStatus[p] === "Loại bỏ") countRemoved++;
+}
+
+console.log("--- BÁO CÁO CUỐI CÙNG ---");
+console.log("Tổng số sách còn lại: " + booksId.length);
+console.log("Số sách đã sửa xong: " + countFixed);
+console.log("Số sách loại bỏ: " + countRemoved);
+if (booksId.length > 0) {
+    console.log("Danh sách chi tiết:");
+    for (let q = 0; q < booksId.length; q++) {
+        console.log(`${q + 1}. ${booksId[q]} - ${booksName[q]} (${bookStatus[q]})`);
+    }
+}
+
+    </script>
+</body>
+</html>

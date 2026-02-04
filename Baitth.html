@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let books =  ["Nha Gia Kim", "Dac Nhan Tam", "Tuan Lam Viec 4 Gio"];
+        let choice;
+        do{
+            choice = +prompt(
+                "--- THƯ VIỆN KHOA HỌC ---\n"+
+
+                "1. Xem danh sách\n"  +
+
+                "2. Nhập sách mới\n" +
+
+                "3. Mượn sách (Xóa)\n"+
+
+                "4. Sửa tên sách\n" +
+
+                "5. Sắp xếp kệ\n" +
+
+                "0. Thoát\n" 
+            );
+            switch (choice) {
+            case 1:
+                    console.log("số lượng sách trong kho:",books.length);
+                    console.log("Danh sách các quyển sách trong kho:",books);
+                    for(let i = 0; i< books.length; i++){
+                        console.log(`${i+1}.${books[i]}`);
+                        
+                    }                    
+                    
+                    break;
+            case 2:
+                //thêm sách
+               const bookNameAdd =  prompt("Nhập tên sách cần thêm:");
+                //thêm phần tử vào cuối cùng
+                books.push(bookNameAdd);
+                    
+                    break;
+            case 3:
+                //nhập tên sách cần mượn
+                const bookBorrow = prompt("Nhập tên sách cần mượn:");
+
+                //kiểm tra xem sách có trong danh sách k
+                const searchIndex = books.indexOf(bookBorrow);
+
+                //xử lý kết quả trả  về
+                if(searchIndex  !== -1){
+                    alert(`Đã mượn cuốn sách ${bookBorrow}`);
+                
+                    //xóa cuốn sách khỏi mảng
+                    books.splice(searchIndex,1);
+
+                }else{
+                    alert("Không có sách này trong kho!!!");
+                }
+                    
+                    break;
+            case 4:
+                const bookNameOld = prompt("vui lòng nhập tên sách cần cập nhập:");
+                const searchbookNameOld = books.indexOf(bookNameOld);
+                if(searchbookNameOld !== -1){
+                    const bookNameNew = prompt("Nhập tên sách mới");
+                    book[searchbookNameOld]= bookNameNew;
+                    alert("Cập nhật thành công");
+                }else{
+
+                }
+                    
+                    break;
+            case 5:
+                    books.sort();
+                     for(let i = 0; i< books.length; i++){
+                        console.log(`${i+1}.${books[i]}`);
+                        }
+                    
+                    break;
+             case 0:
+                alert("Hẹn gặp lại!");
+                
+                 
+                    break;
+                default:
+                    alert("Lựa chọn không hợp lệ vui lòng nhập lại!")
+                    break;
+            }
+            
+        }while (choice !==0); {
+            
+        }
+
+    </script>
+</body>
+</html>
